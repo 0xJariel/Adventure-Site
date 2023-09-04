@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var hbs = require("hbs");
 require("dotenv").config();
 const mongoDBURL = process.env.mongoDBURL;
 
@@ -11,8 +12,10 @@ var newRouter = require("./routes/new");
 
 var app = express();
 
-// Set up mongoose connection
+// Allow for hbs partials
+hbs.registerPartials(path.join(__dirname, "/views/partials"));
 
+// Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 async function main() {

@@ -7,8 +7,8 @@ var hbs = require("hbs");
 require("dotenv").config();
 const mongoDBURL = process.env.mongoDBURL;
 
-var indexRouter = require("./routes/index");
-var newRouter = require("./routes/new");
+const indexRouter = require("./routes/index");
+const adventureRouter = require("./routes/adventureRoutes");
 
 var app = express();
 
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/new", newRouter);
+app.use("/adventures", adventureRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

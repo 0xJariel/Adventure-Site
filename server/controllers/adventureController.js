@@ -1,55 +1,59 @@
-const Adventure = require("./model/adventure");
+// const Adventure = require("../models/adventureModel");
+const { default: mongoose } = require("mongoose");
+const Adventure = require("../models/adventure");
 
 // removes need to have try/catch methods: exceptions vs error handling
-const asyncHandler = require("express-async-handler");
+// didnt want to use this wrapper
+// const asyncHandler = require("express-async-handler");
 
-exports.index = asyncHandler(async (req, res, next) => {
-  // Get details of adventures, adventure instances, authors and genre counts (in parallel)
-  const [numAdventures] = await Promise.all([
-    Adventure.countDocuments({}).exec(),
-  ]);
+// exports.index = asyncHandler(async (req, res, next) => {
+//   // Get details of adventures, adventure instances, authors and genre counts (in parallel)
+//   const [numAdventures] = await Promise.all([
+//     Adventure.countDocuments({}).exec(),
+//   ]);
 
-  res.render("index", {
-    title: "Adventure Time",
-  });
-});
+//   res.render("index", {
+//     title: "Adventure Time",
+//     num: numAdventures,
+//   });
+// });
 
-// Display list of all adventures.
-exports.adventure_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: adventure list");
-});
+// Get all adventures.
+const getAllAdventures = async (req, res, next) => {
+  try {
+    const adventures = await Adventure.find({});
+    res.status(200).json(adventures);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
 
-// Display detail page for a specific adventure.
-exports.adventure_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: adventure detail: ${req.params.id}`);
-});
+// Get a single adventure.
+const getAdventure = async (req, res, next) => {
+  const { id } = req.params;
 
-// Display adventure create form on GET.
-exports.adventure_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: adventure create GET");
-});
+  // check if its a valid mongoose id type
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400).json({ error: "No such id found" });
+  }
 
-// Handle adventure create on POST.
-exports.adventure_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: adventure create POST");
-});
+  const adventure = Adventure.findById({ id });
 
-// Display adventure delete form on GET.
-exports.adventure_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: adventure delete GET");
-});
+  // if an error or exception is thrown
+  if (!adventure) {
+    res.status(400).json({ error: "No such id found" });
+  }
 
-// Handle adventure delete on POST.
-exports.adventure_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: adventure delete POST");
-});
+  // if valid object
+  res.status(200).json(adventure);
+};
 
-// Display adventure update form on GET.
-exports.adventure_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: adventure update GET");
-});
+// POST an adventure
+// DELETE an adventure
+// PATCH an adventure
 
-// Handle adventure update on POST.
-exports.adventure_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: adventure update POST");
-});
+module.exports = {
+  getAllAdventures,
+  getAdventure,
+};

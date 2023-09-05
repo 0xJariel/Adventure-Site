@@ -1,0 +1,46 @@
+how complex?
+
+-header:
+--logo
+--title
+--login
+
+
+-adventure:
+--title
+--details
+--dates
+--meetup location
+--coordinate map (adventure trail or radius)
+--equipment needed (minimum-viable-equipment)
+--vibe-check
+--cost?
+--list of users signed up
+--user that created it
+--images
+--video? main display
+
+-content:
+/index:
+--search bar
+--category options
+--list of adventures displayed
+/newAdventure:
+--newAdventure form>>
+/login:
+--login with google
+--login with email
+/user:
+--profile
+--my adventures: created/joined
+
+-footer:
+--copyright claim
+--made with a sense of adventure
+--contact
+--github
+--donate?
+
+-about:
+--tech stack
+--what inspired me to create this

@@ -9,10 +9,12 @@ function Home() {
     <div>
       {adventures &&
         adventures.map((item) => {
-          <div key={item._id}>
-            <li>{item.title}</li>
-            <li>{item.description}</li>
-          </div>;
+          return (
+            <div key={item._id}>
+              <li>{item.title}</li>
+              <li>{item.description}</li>
+            </div>
+          );
         })}
     </div>
   );

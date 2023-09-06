@@ -12,7 +12,7 @@ function App() {
     // call api and get all adventures
     async function getAdventures() {
       try {
-        const response = await axios.get("/");
+        const response = await axios.get("/api/adventures/");
         console.log(response);
       } catch (error) {
         console.error(error);

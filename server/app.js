@@ -20,7 +20,9 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 async function main() {
   await mongoose.connect(mongoDBURL);
-  console.log("Connected to the Adventure-Time database :)");
+  console.log(
+    `Connected to the Adventure-Time database & running on port ${process.env.PORT} :)`
+  );
 }
 main().catch((err) => console.log(err));
 
@@ -35,7 +37,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/adventures", adventureRouter);
+app.use("/api/adventures/", adventureRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

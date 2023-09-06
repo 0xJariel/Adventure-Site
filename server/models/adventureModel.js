@@ -1,13 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const AdventureSchema = Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  tripDate: { type: Date },
-  //   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  //
-});
+// new was missed
+const AdventureSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    tripDate: { type: Date },
+    //   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    //
+  },
+  { timestamps: true }
+);
 
 AdventureSchema.virtual("summary").get(function () {
   let summary = "";

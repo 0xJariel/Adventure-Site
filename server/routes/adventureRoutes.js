@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Adventure = require("../models/adventureModel");
+const Adventure = require("../models/adventure");
 const {
   getAllAdventures,
   getAdventure,

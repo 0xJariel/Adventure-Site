@@ -1,6 +1,6 @@
 // const { default: mongoose } = require("mongoose");
 const mongoose = require("mongoose");
-const Adventure = require("../models/adventureModel");
+const Adventure = require("../models/adventure");
 
 // removes need to have try/catch methods: exceptions vs error handling
 // didnt want to use this wrapper
@@ -38,12 +38,14 @@ const getAdventure = async (req, res, next) => {
     res.status(400).json({ error: "No such id found" });
   }
 
-  const adventure = Adventure.findById({ id });
+  const adventure = await Adventure.findById(id);
 
   // if an error or exception is thrown
   if (!adventure) {
     res.status(400).json({ error: "No such id found" });
   }
+
+  res.status(200).json(adventure);
 
   // if valid object
   res.status(200).json(adventure);
@@ -51,9 +53,9 @@ const getAdventure = async (req, res, next) => {
 
 // POST an adventure
 const createAdventure = async (req, res, next) => {
-  const { title, description, tripDate } = req.body;
+  // const { title, description, tripDate } = req.body;
   try {
-    const adventure = await Adventure.create({ title, description, tripDate });
+    const adventure = await Adventure.create({ ...req.body });
     res.status(200).json(adventure);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -66,6 +68,18 @@ const deleteAdventure = async (req, res, next) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ error: "No such id found" });
+  }
+
+  try {
+    const adventure = await Adventure.findByIdAndRemove(id);
+
+    if (!adventure) {
+      res.status(400).json({ error: "Adventure not found" });
+    }
+
+    res.status(200).json(adventure);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -83,7 +97,21 @@ const updateAdventure = async (req, res, next) => {
     res.status(400).json({ error: "No such id found" });
   }
 
-  const adventure = await Adventure.findByIdAndUpdate({ id }, { ...req.body });
+  try {
+    const adventure = await Adventure.findByIdAndUpdate(
+      id,
+      { ...req.body },
+      { new: true }
+    );
+
+    if (!adventure) {
+      return res.status(404).json({ error: "Adventure not found" });
+    }
+
+    return res.status(200).json(adventure);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {

@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// new was missed
 const AdventureSchema = new Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
     tripDate: { type: Date },
-    //   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    //
+    // todo: get categories from another schema
+    category: {
+      type: String,
+      enum: ["Backpacking", "Hiking", "Rafting", "Ski Touring"],
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -9,6 +9,7 @@ const mongoDBURL = process.env.mongoDBURL;
 
 const indexRouter = require("./routes/index");
 const adventureRouter = require("./routes/adventureRoutes");
+const categoryRouter = require("./routes/categoryRoutes");
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/api/adventures/", adventureRouter);
+app.use("/api/adventures/category/", categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

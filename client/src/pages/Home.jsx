@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
+import LoginDropdown from "../components/Login";
+import WelcomeMsg from "../components/WelcomeMsg";
+import AdventureList from "../components/AdventureList";
+import Highlight from "../components/Highlight";
+import QuerySelector from "../components/QuerySelector";
 
 function Home() {
   const [adventures, setAdventures] = useOutletContext();
 
   return (
-    <div>
-      {adventures &&
-        adventures.map((item) => {
-          return (
-            <div key={item._id}>
-              <li>{item.title}</li>
-              <li>{item.description}</li>
-            </div>
-          );
-        })}
-    </div>
+    <>
+      <WelcomeMsg />
+      <Highlight />
+      <QuerySelector adventures={adventures} setAdventures={setAdventures} />
+      <AdventureList adventures={adventures} />
+    </>
   );
 }
 

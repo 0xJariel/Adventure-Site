@@ -19,6 +19,7 @@ router.get("/:id", getAdventure);
 router.post("/new", createAdventure);
 
 // GET new adventure
+// could use this with hbs to return a static form page
 router.get("/new");
 
 // DELETE post by id

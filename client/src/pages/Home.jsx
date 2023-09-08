@@ -16,10 +16,10 @@ function Home() {
       <WelcomeMsg />
       <Highlight />
       <QueryBar setAdventures={setAdventures}>
-        <QueryButton name={"Backpacking"} />
-        <QueryButton name={"Hiking"} />
-        <QueryButton name={"Rafting"} />
-        <QueryButton name={"Ski Touring"} />
+        <QueryButton name={"Backpacking"} stateChangeFunction={setAdventures} />
+        <QueryButton name={"Hiking"} stateChangeFunction={setAdventures} />
+        <QueryButton name={"Rafting"} stateChangeFunction={setAdventures} />
+        <QueryButton name={"Ski Touring"} stateChangeFunction={setAdventures} />
       </QueryBar>
 
       <AdventureList adventures={adventures} />

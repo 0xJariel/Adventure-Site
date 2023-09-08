@@ -1,7 +1,8 @@
 import React, { Children } from "react";
 
 function QuerySelector({ children }) {
-  return <div className="flex">{children}</div>;
+  // for styling purposes mainly and fun!
+  return <div className="flex gap-3">{children}</div>;
 }
 
 export default QuerySelector;

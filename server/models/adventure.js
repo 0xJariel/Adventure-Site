@@ -12,7 +12,12 @@ const AdventureSchema = new Schema(
       enum: ["Backpacking", "Hiking", "Rafting", "Ski Touring"],
       required: true,
     },
+    img: {
+      data: Buffer, // Store binary image data
+      contentType: String, // (e.g., 'image/jpeg')
+    },
   },
+
   { timestamps: true }
 );
 

@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="px-28">
       <Navbar />
-      <Outlet context={[adventures, setAdventures]} />
+      <Outlet context={{ adventures, setAdventures }} />
       <Footer />
     </div>
   );

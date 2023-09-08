@@ -5,16 +5,23 @@ import LoginDropdown from "../components/Login";
 import WelcomeMsg from "../components/WelcomeMsg";
 import AdventureList from "../components/AdventureList";
 import Highlight from "../components/Highlight";
-import QuerySelector from "../components/QuerySelector";
+import QueryBar from "../components/QueryBar";
+import QueryButton from "../components/QueryButton";
 
 function Home() {
-  const [adventures, setAdventures] = useOutletContext();
+  const { adventures, setAdventures } = useOutletContext();
 
   return (
     <>
       <WelcomeMsg />
       <Highlight />
-      <QuerySelector adventures={adventures} setAdventures={setAdventures} />
+      <QueryBar setAdventures={setAdventures}>
+        <QueryButton name={"Backpacking"} />
+        <QueryButton name={"Hiking"} />
+        <QueryButton name={"Rafting"} />
+        <QueryButton name={"Ski Touring"} />
+      </QueryBar>
+
       <AdventureList adventures={adventures} />
     </>
   );

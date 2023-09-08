@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/api/adventures/", adventureRouter);
-app.use("/api/adventures/category/", categoryRouter);
+app.use("/api/category/", categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

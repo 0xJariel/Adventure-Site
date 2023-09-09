@@ -58,6 +58,7 @@ const createAdventure = async (req, res, next) => {
     const adventure = await Adventure.create({ ...req.body });
     res.status(200).json(adventure);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

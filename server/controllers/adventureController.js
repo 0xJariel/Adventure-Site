@@ -33,22 +33,23 @@ const getAllAdventures = async (req, res, next) => {
 const getAdventure = async (req, res, next) => {
   const { id } = req.params;
 
-  // check if its a valid mongoose id type
+  // Check if it's a valid mongoose ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(400).json({ error: "No such id found" });
+    return res.status(400).json({ error: "Invalid ID format" });
   }
 
-  const adventure = await Adventure.findById(id);
+  try {
+    const adventure = await Adventure.findById(id);
 
-  // if an error or exception is thrown
-  if (!adventure) {
-    res.status(400).json({ error: "No such id found" });
+    if (!adventure) {
+      return res.status(404).json({ error: "Adventure not found" });
+    }
+
+    res.status(200).json(adventure);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
-
-  res.status(200).json(adventure);
-
-  // if valid object
-  res.status(200).json(adventure);
 };
 
 // POST an adventure

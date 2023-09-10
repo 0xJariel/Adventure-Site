@@ -5,8 +5,8 @@ import axios from "axios";
 import Footer from "./components/Footer";
 
 function App() {
+  // change to only get the first 16 instead of all
   const [adventures, setAdventures] = useState(null);
-  const [myAdventures, setMyAdventures] = useState(null);
 
   useEffect(() => {
     // call api and get all adventures

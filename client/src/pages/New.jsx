@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+const config = {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+};
+
 function New() {
   const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
+  // dont understand why this isnt working
   const createFormData = () => {
     const fd = new FormData();
-    // inputs.forEach((input) => {
-    //   console.log(input);
-    // });
+
+    // Append the values to the FormData object
     fd.append("title", title);
     fd.append("description", description);
     fd.append("category", category);
     fd.append("file", file);
-    console.log(`new form data created: ${fd}`);
+
     return fd;
   };
 
@@ -37,39 +43,34 @@ function New() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submitted");
 
-    // could do this instead >>
-    // >> but i would be getting that state from the form and not from react states
-    // const fd = new FormData(e.target);
     const formData = createFormData();
-    console.log(formData);
+    console.log(...formData);
+    console.log(file.name); // Log the file name
+    console.log(file.size); // Log the file size
 
-    if (!vibeCheck(formData)) {
-      console.log("vibe check failed :/");
-      return;
-    }
+    // if (!vibeCheck(formData)) {
+    //   console.log("vibe check failed :/");
+    //   return;
+    // }
+
     try {
-      console.log(title, category, description, file);
-      const newAdventure = await axios.post("/api/adventures/new", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
-        },
-      });
+      const response = await axios.post("/api/adventures/new", formData);
+      console.log(response);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
       return;
     }
-    console.log("Vibe check passed & form submitted :)");
-    console.log(newAdventure);
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <label htmlFor="title">
           Title:
           <input
+            name="title"
             type="text"
             onChange={(e) => {
               setTitle(e.target.value);
@@ -77,15 +78,16 @@ function New() {
             value={title}
           />
         </label>
-        <label
-          htmlFor="description"
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
-          value={description}
-        >
+        <label htmlFor="description">
           Description:
-          <input type="text" />
+          <input
+            name="description"
+            type="text"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            value={description}
+          />
         </label>
         <label htmlFor="category">
           Choose a category:
@@ -109,11 +111,10 @@ function New() {
           {`Your Image File(s)`}:
           <input
             type="file"
-            name="myImage"
+            name="file"
             accept="image/png, image/gif, image/jpeg"
             onChange={(e) => {
               setFile(e.target.files[0]);
-              console.log(file);
             }}
           />
         </label>

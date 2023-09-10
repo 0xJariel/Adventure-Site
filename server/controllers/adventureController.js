@@ -53,18 +53,14 @@ const getAdventure = async (req, res, next) => {
 
 // POST an adventure
 // Your createAdventure route
-// the advantage here of using a class (new Adventure)
 const createAdventure = async (req, res, next) => {
   try {
-    const { title, description, tripDate, category } = req.body;
+    // const { title, description, tripDate, category } = req.body;
     const { originalname, mimetype, buffer } = req.file;
 
     // Create the Adventure document directly with Adventure.create()
     const adventure = await Adventure.create({
-      title,
-      description,
-      tripDate,
-      category,
+      ...req.body,
       file: {
         name: originalname,
         data: buffer,

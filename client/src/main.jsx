@@ -7,6 +7,8 @@ import Home from "./pages/home.jsx";
 import Error from "./pages/Error.jsx";
 import New from "./pages/New.jsx";
 import Adventure from "./pages/Adventure.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import SignIn from "./pages/SignIn.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,8 @@ const router = createBrowserRouter([
       { path: "new", element: <New /> },
       { path: "adventures/:id", element: <Adventure /> },
       { path: "profile", element: <Adventure /> },
+      { path: "signup", element: <SignUp /> },
+      { path: "signin", element: <SignIn /> },
     ],
     errorElement: <Error />,
   },

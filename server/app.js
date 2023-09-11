@@ -5,11 +5,21 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var hbs = require("hbs");
 require("dotenv").config();
+
+// mongodb URL
 const mongoDBURL = process.env.mongoDBURL;
 
+// Authentication & authorization
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
+
+// routers
 const indexRouter = require("./routes/index");
 const adventureRouter = require("./routes/adventureRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
+const userRouter = require("./routes/userRoutes");
 
 var app = express();
 
@@ -40,6 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/api/adventures/", adventureRouter);
 app.use("/api/category/", categoryRouter);
+app.use("/api/user/", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

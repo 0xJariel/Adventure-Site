@@ -14,7 +14,6 @@ const AdventureSchema = new Schema(
     },
     file: {
       // name: String,
-      name: String,
       data: Buffer, // Store binary image data
       contentType: String, // (e.g., 'image/jpeg')
     },
